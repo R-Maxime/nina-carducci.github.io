@@ -1,7 +1,7 @@
 (function ($) {
   $.fn.mauGallery = function (options) {
     var options = $.extend($.fn.mauGallery.defaults, options);
-    var tagsCollection = [];
+    const tagsCollection = [];
     return this.each(function () {
       $.fn.mauGallery.methods.createRowWrapper($(this));
       if (options.lightBox) {
@@ -15,7 +15,7 @@
           $.fn.mauGallery.methods.responsiveImageItem($(this));
           $.fn.mauGallery.methods.moveItemInRowWrapper($(this));
           $.fn.mauGallery.methods.wrapItemInColumn($(this), options.columns);
-          var theTag = $(this).data("gallery-tag");
+          const theTag = $(this).data("gallery-tag");
           if (options.showTags && theTag !== undefined && tagsCollection.indexOf(theTag) === -1) {
             tagsCollection.push(theTag);
           }
@@ -37,14 +37,14 @@
   };
   $.fn.mauGallery.listeners = function (options) {
     $(".gallery-item").on("click", function () {
-      if (options.lightBox && $(this).prop("tagName") === "IMG") {
-        $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
-      } else {
+      if (!options.lightBox || $(this).prop("tagName") !== "IMG") {
         return;
       }
+      $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
     });
 
     $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
+
     $(".gallery").on("keydown", (e) => {
       if (e.key === "ArrowLeft") {
         $.fn.mauGallery.methods.changeImage(false);
@@ -62,12 +62,7 @@
   };
   $.fn.mauGallery.methods = {
     createRowWrapper(element) {
-      if (
-        !element
-          .children()
-          .first()
-          .hasClass("row")
-      ) {
+      if (!element.children().first().hasClass("row")) {
         element.append('<div class="gallery-items-row row"></div>');
       }
     },
@@ -187,22 +182,22 @@
       $(".active-tag").removeClass("active active-tag");
       $(this).addClass("active-tag");
 
-      var tag = $(this).data("images-toggle");
+      const tag = $(this).data("images-toggle");
 
-      $(".gallery-item").each(function () {
-        $(this)
+      for (const galleryItem of $(".gallery-item")) {
+        $(galleryItem)
           .parents(".item-column")
           .hide();
         if (tag === "all") {
-          $(this)
+          $(galleryItem)
             .parents(".item-column")
             .show(300);
-        } else if ($(this).data("gallery-tag") === tag) {
-          $(this)
+        } else if ($(galleryItem).data("gallery-tag") === tag) {
+          $(galleryItem)
             .parents(".item-column")
             .show(300);
         }
-      });
+      }
     }
   };
 })(jQuery);

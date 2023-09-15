@@ -123,14 +123,14 @@
         }
       } else {
         for (const itemColumn of $(".item-column")) {
-          if (itemColumn.children("img").data("gallery-tag") === activeTag) {
-            imagesCollection.push(itemColumn.children("img"));
+          if ($(itemColumn).children("img").data("gallery-tag") === activeTag) {
+            imagesCollection.push($(itemColumn).children("img"));
           }
         }
       }
       let index = 0;
 
-      for (let i = 0; i < imagesCollection.length; i++) {
+      for (let i = 0; i < imagesCollection.length; i += 1) {
         if ($(activeImage).attr("src") === imagesCollection[i].attr("src")) {
           index = i;
         }
@@ -159,13 +159,12 @@
           </div>`);
     },
     showItemTags(gallery, position, tags) {
-      var tagItems =
-        '<li class="nav-item"><span class="nav-link active active-tag"  data-images-toggle="all">Tous</span></li>';
+      let tagItems = '<li class="nav-item"><span class="nav-link active active-tag"  data-images-toggle="all">Tous</span></li>';
       $.each(tags, function (index, value) {
         tagItems += `<li class="nav-item active">
               <span class="nav-link"  data-images-toggle="${value}">${value}</span></li>`;
       });
-      var tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
+      let tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
 
       if (position === "bottom") {
         gallery.append(tagsRow);

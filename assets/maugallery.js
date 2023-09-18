@@ -179,7 +179,7 @@
         return;
       }
       $(".active-tag").removeClass("active active-tag");
-      $(this).addClass("active-tag");
+      $(this).addClass("active active-tag");
 
       const tag = $(this).data("images-toggle");
 

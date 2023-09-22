@@ -269,6 +269,18 @@ input[type="submit"] {
 	padding: .5em 1em
 }
 
+footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 0px;
+	background-color: #D8D3A8;
+}
+
+footer p {
+	margin: 0px;
+}
+
 @media all and (max-width: 1180px) {
 	.picture {
 		flex: 2;

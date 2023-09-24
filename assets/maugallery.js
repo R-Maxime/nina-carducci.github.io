@@ -58,7 +58,19 @@
     $(".gallery").on("click", ".mg-next", () =>
       $.fn.mauGallery.methods.changeImage(true)
     );
-
+    $("input[type='submit']").on("click", function (e) {
+      e.preventDefault();
+      const name = $("#nom").val();
+      const mail = $("#email").val();
+      const message = $("#message").val();
+      const mailMsg = `Me contacter à l'adresse suivante : ${mail}`
+      const regex = /^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+      if (regex.test(mail)) {
+        window.open(`mailto:nina-carducci@gmail.com?subject=Message%20de%20${name}&body=${message}%0A%0A${mailMsg}`);
+      } else {
+        alert("Veuillez entrer une adresse mail valide");
+      }
+    });
   };
   $.fn.mauGallery.methods = {
     createRowWrapper(element) {
